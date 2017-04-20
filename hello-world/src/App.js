@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import './App.css';
+// import './App.css'
 
 const DATA = [
   //  TODO: Add $ back and remove/convert to int pragmatically
@@ -55,7 +55,7 @@ class App extends Component {
   
   render() {
     return (
-        <div>
+        <div style={{fontFamily: 'sans-serif'}}>
             <SearchBox 
                 searchel={this.state.searchEl}
                 matchElements={this.matchElements.bind(this)}
@@ -67,7 +67,6 @@ class App extends Component {
                 <ProductData
                     ///*{...DATA}*/
                     TEXTVAL={this.state.searchEl}
-                    ///*price={DATA.price}*/
                     items={DATA}
                     INSTOCK={this.state.onlyInStock}
                     addTotal={this.addTotal.bind(this)}
@@ -94,7 +93,7 @@ class SearchBox extends Component {
         return (
             <div>
                 <input id='filter-name' onChange={textChangeCallback} placeholder="Search..."/>
-            
+
                 <p>
                 <input
                         id='stocked-checkbox'
@@ -105,7 +104,7 @@ class SearchBox extends Component {
             </div>
         )
     }
-    
+
 }
 
 class ProductHeadline extends Component {
@@ -119,6 +118,7 @@ class ProductHeadline extends Component {
 }
 
 class ProductData extends Component {
+    //TODO: break this up into two
     // static propTypes = {
     //     TEXTVAL: React.PropTypes.string,
     //     INSTOCK: React.PropTypes.bool,
