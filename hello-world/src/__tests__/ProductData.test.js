@@ -2,33 +2,42 @@
  * Created by Chelsea on 4/19/17.
  */
 import React from "react";
-import ReactDOM from "react-dom";
-import App from "../App";
+import ProductData from "../App";
 import {shallow, mount, render} from "enzyme";
-import renderer from 'react-test-renderer'
 
 /* global it */
-// describe('ProductData test', () => {
-//     it('', () => {
-//         const callback = jest.fn();
-//
-//         // const callBack = function (price, event) {
-//         //     console.log('MERP');
-//         //     // console.log(input)
-//         // };
-//
-//         const Wrapper = shallow(
-//             <ProductData
-//                 // items:[electronics, true, 121]
-//                 TEXTVAL: ''
-//                 INSTOCK: true
-//                 addTotal:{callback}
-//                 total:{99}
-//                 price:{99}
-//             />
-//         );
-//         wrapper.simulate('change', {target:{checked: true}});
-//         expect(callBack.mock.calls).toEqual()
-//     })
-//
-// });
+describe('ProductData test', () => {
+    // it('test', () => {
+    //     //TODO: rename and redo once components are segmented
+    //     const fakeFunc = jest.fn();
+    //
+    //     const wrapper = shallow(
+    //         <ProductData
+    //              items={[{category: "Sporting Goods", price: 9.99, stocked: true, name: "Baseball"},]}
+    //              TEXTVAL= 'ball'
+    //              INSTOCK= {true}
+    //              addTotal={fakeFunc}
+    //              total={99}
+    //         />
+    //     );
+    //
+    //     wrapper.simulate('change', {target:{checked: true}});
+    //     expect(fakeFunc.mock.calls).toEqual('ball', true, 99)
+    //
+    // });
+
+    it('does not have checkbox when out of stock', () => {
+        // const wrapper = shallow(ProductData)
+        const fakeFunc = jest.fn();
+
+        const wrapper = shallow(
+            <ProductData
+                items={[{category: "Sporting Goods", price: 9.99, stocked: true, name: "Baseball"},]}
+                TEXTVAL='ball'
+                INSTOCK={false}
+                addTotal={fakeFunc}
+                total={99}
+            />
+        );
+    })
+});

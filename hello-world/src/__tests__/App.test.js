@@ -7,7 +7,6 @@ import {shallow, mount, render} from "enzyme";
 
 
 /* global it */
-
 describe('App', () => {
     describe('addTotal', () => {
         let app, wrapper;
