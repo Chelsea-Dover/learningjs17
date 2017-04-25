@@ -42,14 +42,13 @@ export default class ProductData extends Component {
             //     />
             // );
 
-            if (currentCategory !== dataItem.category) {
+             if (currentCategory !== dataItem.category) { //check if the currentCategory is not
                 tableGuts.push(<tr key={currentCategory}><td style={{color: 'green'}}>{dataItem.category}</td></tr>);
                 currentCategory = dataItem.category
             }
 
             if (filterMatch){
                 idName = makeKey(key);
-
                 if (!dataItem.stocked){
                     if (!this.props.INSTOCK){
                         tableGuts.push(
