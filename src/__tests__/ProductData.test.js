@@ -5,7 +5,7 @@ import React from "react";
 import ProductData from "../App";
 import {shallow, mount, render} from "enzyme";
 
-/* global it */
+/* global it describe */
 describe('ProductData test', () => {
     // it('test', () => {
     //     //TODO: rename and redo once components are segmented

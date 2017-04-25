@@ -6,7 +6,7 @@ import App from "../App";
 import {shallow, mount, render} from "enzyme";
 
 
-/* global it */
+/* global it describe forEach */
 describe('App', () => {
     describe('addTotal', () => {
         let app, wrapper;
