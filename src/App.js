@@ -3,7 +3,6 @@ import React, {Component} from 'react'
 import ProductData from './ProductData'
 import SearchBox from './SearchBox'
 import ProductHeadline from './ProductHeadline'
-import { Grid, Jumbotron, Well, Panel, Col, PageHeader } from 'react-bootstrap'
 
 // import ProductHeadline from './ProductHeadline';
 
@@ -66,37 +65,26 @@ class App extends Component {
 
   render () {
     return (
-      <Grid>
-        <Col>
-          <Jumbotron>
-            <h1>Welcome!</h1>
-            {/*<p>We have lots of stuff to buy so please spend your money here!</p>*/}
-          </Jumbotron>
-          <Panel>
-            <PageHeader>Choose one of our many items in our store!</PageHeader>
-            <Panel>
-              <SearchBox
-                matchElements={this.matchElements}
-                toggleChecked={this.toggleChecked}
-                searchel={this.state.searchEl}
-                onlyInStock={this.state.onlyInStock}
-              />
-            </Panel>
-            <Panel>
-              <ProductHeadline />
-              <ProductData
-                /// *{...DATA}*/
-                TEXTVAL={this.state.searchEl}
-                items={DATA}
-                INSTOCK={this.state.onlyInStock}
-                addTotal={this.addTotal}
-                total={this.state.total}
-              />
-              <Well bsSize='small' id='total'><p>{this.state.total}</p></Well>
-            </Panel>
-          </Panel>
-        </Col>
-      </Grid>
+      <div style={{fontFamily: 'sans-serif'}}>
+        <SearchBox
+          searchel={this.state.searchEl}
+          matchElements={this.matchElements}
+          toggleChecked={this.toggleChecked}
+          onlyInStock={this.state.onlyInStock}
+        />
+        <table>
+          <ProductHeadline />
+          <ProductData
+            // {...DATA}
+            TEXTVAL={this.state.searchEl}
+            items={DATA}
+            INSTOCK={this.state.onlyInStock}
+            addTotal={this.addTotal}
+            total={this.state.total}
+          />
+        </table>
+        <p id='total'>{this.state.total}</p>
+      </div>
     )
   }
 }

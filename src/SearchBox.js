@@ -3,7 +3,6 @@
  */
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import { FormControl, Checkbox } from 'react-bootstrap'
 
 export default class SearchBox extends Component {
   render () {
@@ -12,19 +11,20 @@ export default class SearchBox extends Component {
 
     return (
       <form>
-        <FormControl
+        <input
           id='filter-name'
           onChange={textChangeCallback}
           type='text'
           placeholder='Enter text'
           />
-        <Checkbox
-          id='stocked-checkbox'
-          onChange={changeCheck}
-          defaultChecked={this.props.onlyInStock}
-          type='checkbox'>
+        <p>
+          <input
+            id='stocked-checkbox'
+            onChange={changeCheck}
+            defaultChecked={this.props.onlyInStock}
+            type='checkbox'/>
             Only show products in stock
-          </Checkbox>
+        </p>
       </form>
     )
   }

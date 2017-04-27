@@ -3,7 +3,6 @@
  */
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import { Table } from 'react-bootstrap'
 // import App from './App'
 // import React from 'react'
 // const {Component} = React;
@@ -75,9 +74,9 @@ export default class ProductData extends Component {
     })
 
     return (
-      <Table bordered responsive>
+      <tbody>
         {tableGuts}
-      </Table>
+      </tbody>
     )
   }
 }
