@@ -3,32 +3,13 @@
  */
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-// import App from './App'
-// import React from 'react'
-// const {Component} = React;
-// import ProductRow from "./ProductRow";
-
-// function makeKey (key) {
-//   const convertedKey = key.toLowerCase().replace(/ /g, '-')
-//   return convertedKey
-// }
 
 export default class ProductData extends Component {
     // TODO: break this up into two
 
-    // static propTypes = {
-    //     TEXTVAL: PropTypes.string,
-    //     INSTOCK: PropTypes.bool,
-    //     addTotal: PropTypes.func,
-    //     total: PropTypes.number,
-    //     items: PropTypes.array,
-    //     price: PropTypes.number,
-    // };
-
   render () {
     let tableGuts = []
     let currentCategory = ''
-    // let idName
 
     this.props.items.forEach((dataItem) => {
       let key = `${dataItem.category}${dataItem.name}`
@@ -42,7 +23,6 @@ export default class ProductData extends Component {
       }
 
       if (filterMatch) {
-        // idName = makeKey(key)
         if (!dataItem.stocked) {
           if (!this.props.INSTOCK) {
             tableGuts.push(
@@ -54,23 +34,21 @@ export default class ProductData extends Component {
                   {dataItem.name}
                 </td>
                 <td>
-                  {dataItem.price}
+                  ${dataItem.price}
                 </td>
               </tr>)
           }
         } else {
-          // let price = dataItem.price
           /* eslint-ignore react/jsx-no-bind */
           tableGuts.push(<tr className='productItem' key={key}>
             <td>
               <input id={dataItem.id} onChange={this.props.addTotal} type='checkbox' />
             </td>
             <td>{dataItem.name}</td>
-            <td>{dataItem.price}</td>
+            <td>${dataItem.price}</td>
           </tr>)
         }
       }
-      // tableGuts.push(<tr key={'total'}><td id='total'>{this.props.total}</td></tr>)
     })
 
     return (
@@ -85,8 +63,5 @@ ProductData.propTypes = {
   TEXTVAL: PropTypes.string,
   INSTOCK: PropTypes.bool,
   addTotal: PropTypes.func,
-  // total: PropTypes.number,
   items: PropTypes.array
-  // id: PropTypes.id
-  // price: PropTypes.number
 }

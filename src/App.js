@@ -16,10 +16,12 @@ const DATA = [
   {category: 'Electronics', price: 199.99, stocked: true, name: 'Nexus 7', id: 6}
 ]
 
-function roundUp (num) {
-  // console.log(num.toFixed(2))
-  // console.log((num + e-10).toFixed(2))
-  return Math.round(num)
+  function roundUp (num) {
+  let roundNum = parseFloat(num.toFixed(2))
+  if (roundNum < 0.99) {
+    roundNum = 0.00
+  }
+  return roundNum
 }
 
 class App extends Component {
@@ -83,7 +85,7 @@ class App extends Component {
             total={this.state.total}
           />
         </table>
-        <p id='total'>{this.state.total}</p>
+        <p id='total'>${this.state.total}</p>
       </div>
     )
   }
