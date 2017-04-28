@@ -16,7 +16,7 @@ const DATA = [
   {category: 'Electronics', price: 199.99, stocked: true, name: 'Nexus 7', id: 6}
 ]
 
-  function roundUp (num) {
+function roundUp (num) {
   let roundNum = parseFloat(num.toFixed(2))
   if (roundNum < 0.99) {
     roundNum = 0.00
