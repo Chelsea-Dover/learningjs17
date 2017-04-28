@@ -1,10 +1,29 @@
 import React, {Component} from 'react'
-// import './App.css'
+import './App.css'
 import ProductData from './ProductData'
 import SearchBox from './SearchBox'
 import ProductHeadline from './ProductHeadline'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import AppBar from 'material-ui/AppBar'
+import Paper from 'material-ui/Paper'
+import {Table, TableHeader} from 'material-ui/Table'
+import {indigo500} from 'material-ui/styles/colors'
 
-// import ProductHeadline from './ProductHeadline';
+import IconButton from 'material-ui/IconButton'
+import SocialCake from 'material-ui/svg-icons/social/cake'
+
+const barStyle = {
+  backgroundColor: indigo500
+}
+
+const style = {
+  padding: 30,
+  margin: 20,
+  textAlign: 'center',
+  display: 'inline-block',
+}
 
 const DATA = [
   //  TODO: Add $ back and remove/convert to int pragmatically
@@ -17,9 +36,11 @@ const DATA = [
 ]
 
 function roundUp (num) {
-  // console.log(num.toFixed(2))
-  // console.log((num + e-10).toFixed(2))
-  return Math.round(num)
+  let roundNum = parseFloat(num.toFixed(2))
+  if (roundNum < 0.99) {
+    roundNum = 0.00
+  }
+  return roundNum
 }
 
 class App extends Component {
@@ -65,26 +86,37 @@ class App extends Component {
 
   render () {
     return (
-      <div style={{fontFamily: 'sans-serif'}}>
-        <SearchBox
-          searchel={this.state.searchEl}
-          matchElements={this.matchElements}
-          toggleChecked={this.toggleChecked}
-          onlyInStock={this.state.onlyInStock}
-        />
-        <table>
-          <ProductHeadline />
-          <ProductData
-            // {...DATA}
-            TEXTVAL={this.state.searchEl}
-            items={DATA}
-            INSTOCK={this.state.onlyInStock}
-            addTotal={this.addTotal}
-            total={this.state.total}
+      <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+        <div>
+          <AppBar
+            iconElementLeft={<IconButton><SocialCake /></IconButton>}
+            title='Welcome!'
+            style={barStyle}
           />
-        </table>
-        <p id='total'>{this.state.total}</p>
-      </div>
+          <Paper style={style} zDepth={1}>
+            <SearchBox
+              searchel={this.state.searchEl}
+              matchElements={this.matchElements}
+              toggleChecked={this.toggleChecked}
+              onlyInStock={this.state.onlyInStock}
+            />
+            <Table>
+              <TableHeader>
+                <ProductHeadline />
+              </TableHeader>
+            </Table>
+            <ProductData
+              // {...DATA}
+              TEXTVAL={this.state.searchEl}
+              items={DATA}
+              INSTOCK={this.state.onlyInStock}
+              addTotal={this.addTotal}
+              total={this.state.total}
+            />
+            <p id='total'>${this.state.total}</p>
+          </Paper>
+        </div>
+      </MuiThemeProvider>
     )
   }
 }

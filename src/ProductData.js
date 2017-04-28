@@ -3,6 +3,8 @@
  */
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import {TableBody, TableRow, TableRowColumn, Table} from 'material-ui/Table'
+import Checkbox from 'material-ui/Checkbox'
 // import App from './App'
 // import React from 'react'
 // const {Component} = React;
@@ -16,14 +18,12 @@ import PropTypes from 'prop-types'
 export default class ProductData extends Component {
     // TODO: break this up into two
 
-    // static propTypes = {
-    //     TEXTVAL: PropTypes.string,
-    //     INSTOCK: PropTypes.bool,
-    //     addTotal: PropTypes.func,
-    //     total: PropTypes.number,
-    //     items: PropTypes.array,
-    //     price: PropTypes.number,
-    // };
+  constructor (props) {
+    super(props)
+    this.state = {
+      showCheckboxes: false
+    }
+  }
 
   render () {
     let tableGuts = []
@@ -35,9 +35,9 @@ export default class ProductData extends Component {
       let filterMatch = dataItem.name.indexOf(this.props.TEXTVAL) !== -1
 
       if (currentCategory !== dataItem.category) { // check if the currentCategory is not
-        tableGuts.push(<tr key={currentCategory}>
-          <td colSpan='3' bsStyle="success" style={{color: 'green'}}>{dataItem.category}</td>
-        </tr>)
+        tableGuts.push(<TableRow key={currentCategory}>
+          <TableRowColumn colSpan='3' bsStyle='success' style={{color: 'green'}}>{dataItem.category}</TableRowColumn>
+        </TableRow>)
         currentCategory = dataItem.category
       }
 
@@ -46,37 +46,40 @@ export default class ProductData extends Component {
         if (!dataItem.stocked) {
           if (!this.props.INSTOCK) {
             tableGuts.push(
-              <tr className='productItem' key={key}>
-                <td id={dataItem.id}>
+              <TableRow className='productItem' key={key}>
+                <TableRowColumn id={dataItem.id}>
                     Not in stock
-                </td>
-                <td style={{color: 'red'}}>
+                </TableRowColumn>
+                <TableRowColumn style={{color: 'red'}}>
                   {dataItem.name}
-                </td>
-                <td>
-                  {dataItem.price}
-                </td>
-              </tr>)
+                </TableRowColumn>
+                <TableRowColumn>
+                  ${dataItem.price}
+                </TableRowColumn>
+              </TableRow>)
           }
         } else {
-          // let price = dataItem.price
           /* eslint-ignore react/jsx-no-bind */
-          tableGuts.push(<tr className='productItem' key={key}>
-            <td>
-              <input id={dataItem.id} onChange={this.props.addTotal} type='checkbox' />
-            </td>
-            <td>{dataItem.name}</td>
-            <td>{dataItem.price}</td>
-          </tr>)
+          tableGuts.push(<TableRow className='productItem' key={key}>
+            <TableRowColumn>
+              <Checkbox
+                id={dataItem.id}
+                onClick={this.props.addTotal}
+                type='checkbox' />
+            </TableRowColumn>
+            <TableRowColumn>{dataItem.name}</TableRowColumn>
+            <TableRowColumn>${dataItem.price}</TableRowColumn>
+          </TableRow>)
         }
       }
-      // tableGuts.push(<tr key={'total'}><td id='total'>{this.props.total}</td></tr>)
     })
 
     return (
-      <tbody>
-        {tableGuts}
-      </tbody>
+      <Table>
+        <TableBody displayRowCheckbox={this.state.showCheckboxes}>
+          {tableGuts}
+        </TableBody>
+      </Table>
     )
   }
 }
