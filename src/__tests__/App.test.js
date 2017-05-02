@@ -21,7 +21,7 @@ describe('App', () => {
             // console.log(app.state);
       app.addTotal(fakeEvent)
             // const expected = {product1: true};
-      expect(app.state.total).toEqual(10)
+      expect(app.state.total).toEqual(9.99)
             // expect(app.state.addTotal).toEqual({expected});
     })
 

@@ -26,7 +26,7 @@ describe('intergration test', () => {
     it('will filter out of stock items when in stock is checked', () => {
             // const app = mount(<ProductData/>);
       const event = {target: {checked: true}}
-      wrapper.find('#stocked-checkbox').simulate('change', event) // On whatever
+      wrapper.find('#stocked-checkbox').simulate('click', event) // On whatever
       expect(wrapper.find('.productItem').length).toBe(4)
     })
 
@@ -41,7 +41,7 @@ describe('intergration test', () => {
       const typeEvent = {target: {value: 'ball'}}
       const clickEvent = {target: {checked: true}}
       wrapper.find('#filter-name').simulate('change', typeEvent)
-      wrapper.find('#stocked-checkbox').simulate('change', clickEvent)
+      wrapper.find('#stocked-checkbox').simulate('click', clickEvent)
             // wrapper.find('#filter-name', '#stocked-checkbox').simulate('change', typeEvent, clickEvent);
       expect(wrapper.find('.productItem').length).toBe(2)
     })
@@ -55,27 +55,27 @@ describe('intergration test', () => {
     })
 
     it('total updates when iPod is clicked', () => {
-      const event = {target: {checked: true, id: '2'}}
+      const event = {target: {checked: true, id: '4'}}
       wrapper.find('#4').simulate('change', event)
       const updatedTotal = wrapper.find('#total').text()
       // console.log(wrapper.find('#total'))
-      expect(updatedTotal).toBe('10')
+      expect(updatedTotal).toBe('$99.99')
     })
 
     it('total goes back to 0 once iPod is clicked twice', () => {
-      const eventOn = {target: {checked: true, id: '2'}}
-      const eventOff = {target: {checked: false, id: '2'}}
+      const eventOn = {target: {checked: true, id: '4'}}
+      const eventOff = {target: {checked: false, id: '4'}}
       wrapper.find('#4').simulate('change', eventOn) //
       wrapper.find('#4').simulate('change', eventOff)
-      expect(wrapper.find('#total').text()).toBe('0')
+      expect(wrapper.find('#total').text()).toBe('$0')
     })
 
     it('will add up iPod and Football together', () => {
-      const eventiPod = {target: {checked: true, id: '2'}}
-      const eventBall = {target: {checked: true, id: '4'}}
-      wrapper.find('#4').simulate('change', eventiPod) //
+      const eventiPod = {target: {checked: true, id: '4'}}
+      const eventBall = {target: {checked: true, id: '1'}}
+      wrapper.find('#4').simulate('change', eventiPod)
       wrapper.find('#1').simulate('change', eventBall)
-      expect(wrapper.find('#total').text()).toBe('110')
+      expect(wrapper.find('#total').text()).toBe('$149.98')
     })
   })
 })

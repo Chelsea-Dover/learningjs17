@@ -39,8 +39,6 @@ export default class SearchBox extends Component {
 }
 
 SearchBox.propTypes = {
-  // searchel: PropTypes.string,
   matchElements: PropTypes.func,
-  toggleChecked: PropTypes.func,
-  // onlyInStock: PropTypes.bool
+  toggleChecked: PropTypes.func
 }

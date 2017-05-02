@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import './App.css'
+// import './App.css'
 import ProductData from './ProductData'
 import SearchBox from './SearchBox'
 import ProductHeadline from './ProductHeadline'
@@ -22,7 +22,7 @@ const style = {
   padding: 30,
   margin: 20,
   textAlign: 'center',
-  display: 'inline-block',
+  display: 'inline-block'
 }
 
 const DATA = [
@@ -50,7 +50,8 @@ class App extends Component {
       searchEl: '',
       onlyInStock: false,
       total: 0,
-      inCart: {}
+      inCart: {},
+      selectable: false
     }
     this.matchElements = this.matchElements.bind(this)
     this.toggleChecked = this.toggleChecked.bind(this)
@@ -100,7 +101,7 @@ class App extends Component {
               toggleChecked={this.toggleChecked}
               onlyInStock={this.state.onlyInStock}
             />
-            <Table>
+            <Table selectable={this.state.selectable}>
               <TableHeader>
                 <ProductHeadline />
               </TableHeader>
