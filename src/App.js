@@ -2,15 +2,12 @@ import React, {Component} from 'react'
 // import './App.css'
 import ProductData from './ProductData'
 import SearchBox from './SearchBox'
-import ProductHeadline from './ProductHeadline'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import AppBar from 'material-ui/AppBar'
 import Paper from 'material-ui/Paper'
-import {Table, TableHeader} from 'material-ui/Table'
 import {indigo500} from 'material-ui/styles/colors'
-
 import IconButton from 'material-ui/IconButton'
 import SocialCake from 'material-ui/svg-icons/social/cake'
 
@@ -35,7 +32,7 @@ const DATA = [
   {category: 'Electronics', price: 199.99, stocked: true, name: 'Nexus 7', id: 6}
 ]
 
-function roundUp (num) {
+export function roundUp (num) {
   let roundNum = parseFloat(num.toFixed(2))
   if (roundNum < 0.99) {
     roundNum = 0.00
@@ -72,7 +69,7 @@ class App extends Component {
     let price
 
     DATA.forEach((dataItem) => {
-      if (dataItem.id === parseInt(event.target.id)) {
+      if (dataItem.id === parseInt(event.target.id, 10)) {
         price = dataItem.price
       }
     })
@@ -101,18 +98,12 @@ class App extends Component {
               toggleChecked={this.toggleChecked}
               onlyInStock={this.state.onlyInStock}
             />
-            <Table selectable={this.state.selectable}>
-              <TableHeader>
-                <ProductHeadline />
-              </TableHeader>
-            </Table>
             <ProductData
               // {...DATA}
               TEXTVAL={this.state.searchEl}
               items={DATA}
               INSTOCK={this.state.onlyInStock}
               addTotal={this.addTotal}
-              total={this.state.total}
             />
             <p id='total'>${this.state.total}</p>
           </Paper>

@@ -1,6 +1,3 @@
-/**
- * Created by Chelsea on 4/19/17.
- */
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import TextField from 'material-ui/TextField'
