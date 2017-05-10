@@ -31,7 +31,6 @@ const DATA = [
   {category: 'Electronics', price: 399.99, stocked: false, name: 'iPhone 5', id: 5},
   {category: 'Electronics', price: 199.99, stocked: true, name: 'Nexus 7', id: 6}
 ]
-
 export function roundUp (num) {
   let roundNum = parseFloat(num.toFixed(2))
   if (roundNum < 0.99) {
