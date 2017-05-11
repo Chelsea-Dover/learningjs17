@@ -30,7 +30,7 @@ describe('ProductRow tests', () => {
         key='3'
       />
     )
-    it('', () => {
+    it('will create a checkbox when in stock', () => {
       const tableRow = wrapper.find('#3')
       expect(tableRow.prop('type')).toBe('checkbox')
     })
