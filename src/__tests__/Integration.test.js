@@ -3,7 +3,13 @@ import ReactDOM from 'react-dom'
 import App from '../App'
 import { mount } from 'enzyme'
 
-/* global it describe beforeEach expect */
+import jsdom from 'jsdom'
+const doc = jsdom.jsdom('<!doctype html><html><body></body></html>')
+global.document = doc
+global.window = doc.defaultView
+global.window.document = {createElement: function () {}}
+
+/* global it describe beforeEach expect window document */
 
 describe('intergration test', () => {
   it('renders without crashing', () => {
@@ -19,19 +25,16 @@ describe('intergration test', () => {
     })
 
     it('will render the right number of table rows', () => { //  Sing that says what is going to happen
-      // console.log(wrapper)
-      expect(wrapper.find('tr').length).toBe(9)
+      expect(wrapper.find('tr').length).toBe(8)
     })
 
     it('will filter out of stock items when in stock is checked', () => {
-            // const app = mount(<ProductData/>);
       const event = {target: {checked: true}}
-      wrapper.find('#stocked-checkbox').simulate('change', event) // On whatever
+      wrapper.find('#stocked-checkbox').simulate('click', event) // On whatever
       expect(wrapper.find('.productItem').length).toBe(4)
     })
 
     it('will filter out items that are not ball when user is serching for ball', () => {
-            // const wrapper = mount(<App/>);
       const event = {target: {value: 'ball'}}
       wrapper.find('#filter-name').simulate('change', event)
       expect(wrapper.find('.productItem').length).toBe(3)
@@ -41,8 +44,7 @@ describe('intergration test', () => {
       const typeEvent = {target: {value: 'ball'}}
       const clickEvent = {target: {checked: true}}
       wrapper.find('#filter-name').simulate('change', typeEvent)
-      wrapper.find('#stocked-checkbox').simulate('change', clickEvent)
-            // wrapper.find('#filter-name', '#stocked-checkbox').simulate('change', typeEvent, clickEvent);
+      wrapper.find('#stocked-checkbox').simulate('click', clickEvent)
       expect(wrapper.find('.productItem').length).toBe(2)
     })
   })
@@ -52,30 +54,35 @@ describe('intergration test', () => {
 
     beforeEach(() => {
       wrapper = mount(<App />)
+
+      window.getSelection = () => {
+        return {
+          removeAllRanges: () => {}
+        }
+      }
     })
 
     it('total updates when iPod is clicked', () => {
-      const event = {target: {checked: true, id: '2'}}
-      wrapper.find('#4').simulate('change', event)
+      const event = {target: {checked: true, id: '4'}}
+      wrapper.find('#4').simulate('click', event)
       const updatedTotal = wrapper.find('#total').text()
-      // console.log(wrapper.find('#total'))
-      expect(updatedTotal).toBe('10')
+      expect(updatedTotal).toBe('$99.99')
     })
 
     it('total goes back to 0 once iPod is clicked twice', () => {
-      const eventOn = {target: {checked: true, id: '2'}}
-      const eventOff = {target: {checked: false, id: '2'}}
-      wrapper.find('#4').simulate('change', eventOn) //
-      wrapper.find('#4').simulate('change', eventOff)
-      expect(wrapper.find('#total').text()).toBe('0')
+      const eventOn = {target: {checked: true, id: '4'}}
+      const eventOff = {target: {checked: false, id: '4'}}
+      wrapper.find('#4').simulate('click', eventOn)
+      wrapper.find('#4').simulate('click', eventOff)
+      expect(wrapper.find('#total').text()).toBe('$0')
     })
 
     it('will add up iPod and Football together', () => {
-      const eventiPod = {target: {checked: true, id: '2'}}
-      const eventBall = {target: {checked: true, id: '4'}}
-      wrapper.find('#4').simulate('change', eventiPod) //
-      wrapper.find('#1').simulate('change', eventBall)
-      expect(wrapper.find('#total').text()).toBe('110')
+      const eventiPod = {target: {checked: true, id: '4'}}
+      const eventBall = {target: {checked: true, id: '1'}}
+      wrapper.find('#4').simulate('click', eventiPod)
+      wrapper.find('#1').simulate('click', eventBall)
+      expect(wrapper.find('#total').text()).toBe('$149.98')
     })
   })
 })

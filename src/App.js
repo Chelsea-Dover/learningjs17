@@ -2,9 +2,25 @@ import React, {Component} from 'react'
 // import './App.css'
 import ProductData from './ProductData'
 import SearchBox from './SearchBox'
-import ProductHeadline from './ProductHeadline'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import AppBar from 'material-ui/AppBar'
+import Paper from 'material-ui/Paper'
+import {indigo500} from 'material-ui/styles/colors'
+import IconButton from 'material-ui/IconButton'
+import SocialCake from 'material-ui/svg-icons/social/cake'
 
-// import ProductHeadline from './ProductHeadline';
+const barStyle = {
+  backgroundColor: indigo500
+}
+
+const style = {
+  padding: 30,
+  margin: 20,
+  textAlign: 'center',
+  display: 'inline-block'
+}
 
 const DATA = [
   //  TODO: Add $ back and remove/convert to int pragmatically
@@ -16,7 +32,7 @@ const DATA = [
   {category: 'Electronics', price: 199.99, stocked: true, name: 'Nexus 7', id: 6}
 ]
 
-function roundUp (num) {
+export function roundUp (num) {
   let roundNum = parseFloat(num.toFixed(2))
   if (roundNum < 0.99) {
     roundNum = 0.00
@@ -31,7 +47,8 @@ class App extends Component {
       searchEl: '',
       onlyInStock: false,
       total: 0,
-      inCart: {}
+      inCart: {},
+      selectable: false
     }
     this.matchElements = this.matchElements.bind(this)
     this.toggleChecked = this.toggleChecked.bind(this)
@@ -52,7 +69,7 @@ class App extends Component {
     let price
 
     DATA.forEach((dataItem) => {
-      if (dataItem.id === parseInt(event.target.id)) {
+      if (dataItem.id === parseInt(event.target.id, 10)) {
         price = dataItem.price
       }
     })
@@ -67,26 +84,31 @@ class App extends Component {
 
   render () {
     return (
-      <div style={{fontFamily: 'sans-serif'}}>
-        <SearchBox
-          searchel={this.state.searchEl}
-          matchElements={this.matchElements}
-          toggleChecked={this.toggleChecked}
-          onlyInStock={this.state.onlyInStock}
-        />
-        <table>
-          <ProductHeadline />
-          <ProductData
-            // {...DATA}
-            TEXTVAL={this.state.searchEl}
-            items={DATA}
-            INSTOCK={this.state.onlyInStock}
-            addTotal={this.addTotal}
-            total={this.state.total}
+      <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+        <div>
+          <AppBar
+            iconElementLeft={<IconButton><SocialCake /></IconButton>}
+            title='Welcome!'
+            style={barStyle}
           />
-        </table>
-        <p id='total'>${this.state.total}</p>
-      </div>
+          <Paper style={style} zDepth={1}>
+            <SearchBox
+              searchel={this.state.searchEl}
+              matchElements={this.matchElements}
+              toggleChecked={this.toggleChecked}
+              onlyInStock={this.state.onlyInStock}
+            />
+            <ProductData
+              // {...DATA}
+              TEXTVAL={this.state.searchEl}
+              items={DATA}
+              INSTOCK={this.state.onlyInStock}
+              addTotal={this.addTotal}
+            />
+            <p id='total'>${this.state.total}</p>
+          </Paper>
+        </div>
+      </MuiThemeProvider>
     )
   }
 }
